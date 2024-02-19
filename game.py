@@ -39,6 +39,7 @@ alien_h = alien_images[0].get_rect().size[1]
 
 # Projectiles
 projectile_fired = False
+projectile_cooldown = 0
 projectiles = []
 projectile_w = 4
 projectile_h = 8
@@ -79,8 +80,10 @@ while running:
             elif event.key == pg.K_RIGHT:
                 right_pressed = True
 
-            elif event.key == pg.K_SPACE:
+            if event.key == pg.K_SPACE:
                 projectile_fired = True
+            else:
+                projectile_fired = False
 
         # Keyreleases
         elif event.type == pg.KEYUP:
@@ -137,12 +140,15 @@ while running:
                     break
 
     # Firing (spawning new projectiles)
-    if projectile_fired:
-        sound_laser.play()
+    if projectile_cooldown <= 0:
+        if projectile_fired:
+            sound_laser.play()
 
-        projectile = {"x": ship_x + ship_w / 2 - projectile_w / 2, "y": ship_y}
-        projectiles.append(projectile)
-        projectile_fired = False
+            projectile = {"x": ship_x + ship_w / 2 - projectile_w / 2, "y": ship_y}
+            projectiles.append(projectile)
+            projectile_cooldown = int(clock.get_fps() / 5)
+    else:
+        projectile_cooldown -= 1
 
     ## Drawing ##
     screen.fill((0, 0, 100))
