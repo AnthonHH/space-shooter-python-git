@@ -28,12 +28,16 @@ for i in range(2):
     alien_images.append(img)
 
 aliens = []
+
+
 def spawn_aliens():
     for i in range(5):
         alien1 = {"x": 50 * i + 50, "y": 0}
         alien2 = {"x": 50 * i + 50, "y": 50}
         aliens.append(alien1)
         aliens.append(alien2)
+
+
 spawn_aliens()
 
 alien_w = alien_images[0].get_rect().size[0]
@@ -96,7 +100,6 @@ while running:
             elif event.key == pg.K_SPACE:
                 projectile_fired = False
 
-
     ## Updating (movement, collisions, etc.) ##
 
     # Alien
@@ -152,7 +155,10 @@ while running:
         if projectile_fired:
             sound_laser.play()
 
-            projectile = {"x": ship_x + ship_w / 2 - projectile_w / 2, "y": ship_y}
+            projectile = {
+                "x": ship_x + ship_w / 2 - projectile_w / 2,
+                "y": ship_y,
+            }
             projectiles.append(projectile)
             projectile_cooldown = int(clock.get_fps() / 5)
     else:
