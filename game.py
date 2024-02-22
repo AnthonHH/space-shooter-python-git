@@ -80,10 +80,8 @@ while running:
             elif event.key == pg.K_RIGHT:
                 right_pressed = True
 
-            if event.key == pg.K_SPACE:
+            elif event.key == pg.K_SPACE:
                 projectile_fired = True
-            else:
-                projectile_fired = False
 
         # Keyreleases
         elif event.type == pg.KEYUP:
@@ -92,6 +90,10 @@ while running:
 
             elif event.key == pg.K_RIGHT:
                 right_pressed = False
+
+            elif event.key == pg.K_SPACE:
+                projectile_fired = False
+
 
     ## Updating (movement, collisions, etc.) ##
 
