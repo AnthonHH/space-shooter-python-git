@@ -28,11 +28,13 @@ for i in range(2):
     alien_images.append(img)
 
 aliens = []
-for i in range(5):
-    alien1 = {"x": 50 * i + 50, "y": 0}
-    alien2 = {"x": 50 * i + 50, "y": 50}
-    aliens.append(alien1)
-    aliens.append(alien2)
+def spawn_aliens():
+    for i in range(5):
+        alien1 = {"x": 50 * i + 50, "y": 0}
+        alien2 = {"x": 50 * i + 50, "y": 50}
+        aliens.append(alien1)
+        aliens.append(alien2)
+spawn_aliens()
 
 alien_w = alien_images[0].get_rect().size[0]
 alien_h = alien_images[0].get_rect().size[1]
@@ -136,6 +138,10 @@ while running:
                     projectiles.remove(projectile)
                     aliens.remove(alien)
                     score += 1
+
+                    # respawn
+                    if len(aliens) == 0:
+                        spawn_aliens()
 
                     # No further aliens can be hit by this projectile
                     # so skip to the next projectile
